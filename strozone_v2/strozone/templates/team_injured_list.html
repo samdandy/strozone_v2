@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+     .col3 {
+        flex: 0 0 calc(15.33% + 20px);
+        margin: 10px;
+        margin-left: 30px;
+        box-sizing: border-box;
+        /* padding-top: 70px; */
+        font-family: 'Orbitron', sans-serif;
+    }
+    .col4 {
+        flex: 0 0 calc(10.33% + 20px);
+        margin: 10px;
+        margin-left: 30px;
+        box-sizing: border-box;
+        
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+        /* padding-top: 70px; */
+        font-family: 'Orbitron', sans-serif;
+    }
+</style>
+<div class="container-fluid" style="font-family: 'Orbitron', sans-serif;">
+  <div class="row">
+
+      <div class="col-lg-12">
+          <div class="container text-center" style="padding-top: 20px;">
+              <div class="row align-items-start">
+                  <!-- Team Page -->
+                  <div class="col-md-3 col-sm-6 mb-3"> <!-- Adjust column classes for small screens -->
+                      <a style="color: white; text-decoration: none;" class="glow-on-hover btn btn-secondary" href="{% url 'team' team_id %}">Team Page</a>
+                  </div>
+                  <!-- Team Leaders -->
+                  <div class="col-md-3 col-sm-6 mb-3"> <!-- Adjust column classes for small screens -->
+                      <div class="dropdown">
+                          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              Team Leaders
+                          </button>
+                          <ul class="dropdown-menu">
+                              <li><a class="dropdown-item" type="button" href="{% url 'team_leaders_hitting' team_id %}">Hitting</a></li>
+                              <li><a class="dropdown-item" type="button" href="{% url 'team_leaders_pitching' team_id %}">Pitching</a></li>
+                          </ul>
+                      </div>
+                  </div>
+                  <!-- Roster -->
+                  <div class="col-md-3 col-sm-6 mb-3"> <!-- Adjust column classes for small screens -->
+                      <a style="color: white; text-decoration: none;" class="glow-on-hover btn btn-secondary" href="{% url 'team_roster' team_id %}">Roster</a>
+                  </div>
+                  <!-- Injured List -->
+                  <div class="col-md-3 col-sm-6 mb-3"> <!-- Adjust column classes for small screens -->
+                      <a style="color: white; text-decoration: none;" class="glow-on-hover btn btn-secondary" href="{% url 'team_injured_list' team_id %}">Injured List</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+  </div>
+</div>
+  <h1>team_IL</h1>
+{% endblock %}

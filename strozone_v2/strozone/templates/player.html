@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .col {
+        flex: 0 0 calc(33.33% - 20px);
+        margin: 10px;
+        background-color: #f0f0f0;
+        box-sizing: border-box;
+        padding: 20px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+    .table-fixed-column {
+        position: relative;
+    }
+    .table-fixed-column th:first-child,
+    .table-fixed-column td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+     
+     /* Optional: to make the first column background white */
+    }
+    /* @media (max-width: 992px) {
+        .col {
+            flex-basis: calc(50% - 20px);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .col {
+            flex-basis: calc(100% - 20px);
+        }
+    } */
+</style>
+<div class="container" style="
+margin: 10px;
+background-color: #f0f0f0;
+box-sizing: border-box;
+padding: 20px;
+box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);">
+    {% if header %}
+<div style="font-family: 'Orbitron', sans-serif;">
+<H1> {{ header.full_name }} </H1>
+<h4>{{ header.current_team }}</h4>
+<h6>Position: {{ header.position }}</h6>
+<h6>Bats: {{ header.batting_side }}</h6>
+<h6>Throws: {{ header.throwing_hand }}</h6>
+{% else %}
+<h4>No Data</h4>
+{% endif %}
+</div>
+<div style="overflow-x: auto;">
+
+  {% if p_type == 'hitter' %}
+
+{% if career %}
+<br>
+<h5 style="font-family: 'Orbitron', sans-serif;">Career</h5>
+        <table class="table table-dark table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">AB</th>
+                <th scope="col">H</th>
+                <th scope="col">HR</th>
+                <th scope="col">BA</th>
+                <th scope="col">R</th>
+                <th scope="col">RBI</th>
+                <th scope="col">SB</th>
+                <th scope="col">OBP</th>
+                <th scope="col">SLG</th>
+                <th scope="col">OPS</th>
+                <th scope="col">BABIP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ career.atBats }}</td>
+                <td>{{ career.hits }}</td>
+                <td>{{ career.hr }}</td>
+                <td>{{ career.avg }}</td>
+                <td>{{ career.runs }}</td>
+                <td>{{ career.rbi }}</td>
+                <td>{{ career.stolenBases }}</td>
+                <td>{{ career.obp }}</td>
+                <td>{{ career.slg }}</td>
+                <td>{{ career.ops }}</td>
+                <td>{{ career.babip }}</td>
+              </tr>
+            </tbody>
+          </table>
+          {% else %}
+<h4>No Data</h4>
+{% endif %}
+</div>
+<div style="overflow-x: auto;">
+{% if seasons %}
+<br>
+<h5 style="font-family: 'Orbitron', sans-serif;">All Seasons</h5>
+        <table class="table table-fixed-column table-dark table-bordered ">
+            <thead>
+              <tr>
+                <th scope="col">YEAR</th>
+                <th scope="col">AB</th>
+                <th scope="col">H</th>
+                <th scope="col">HR</th>
+                <th scope="col">BA</th>
+                <th scope="col">R</th>
+                <th scope="col">RBI</th>
+                <th scope="col">SB</th>
+                <th scope="col">OBP</th>
+                <th scope="col">SLG</th>
+                <th scope="col">OPS</th>
+                <th scope="col">BABIP</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for season in seasons %}
+              <tr>
+                <td>{{ season.season }}</td>
+                <td>{{ season.atBats }}</td>
+                <td>{{ season.hits }}</td>
+                <td>{{ season.hr }}</td>
+                <td>{{ season.avg }}</td>
+                <td>{{ season.runs }}</td>
+                <td>{{ season.rbi }}</td>
+                <td>{{ season.stolenBases }}</td>
+                <td>{{ season.obp }}</td>
+                <td>{{ season.slg }}</td>
+                <td>{{ season.ops }}</td>
+                <td>{{ season.babip }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+<h4>No Data</h4>
+{% endif %}
+
+{% else %}
+
+{% if career %}
+<br>
+<h5>Career</h5>
+        <table class="table  table-dark table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">W</th>
+                <th scope="col">L</th>
+                <th scope="col">GP</th>
+                <th scope="col">GS</th>
+                <th scope="col">S</th>
+                <th scope="col">IP</th>
+                <th scope="col">WHIP</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ career.wins }}</td>
+                <td>{{ career.losses }}</td>
+                <td>{{ career.gamesPlayed }}</td>
+                <td>{{ career.gamesStarted }}</td>
+                <td>{{ career.saves }}</td>
+                <td>{{ career.inningsPitched }}</td>
+                <td>{{ career.whip }}</td>
+              </tr>
+            </tbody>
+          </table>
+          {% else %}
+<h4>No Data</h4>
+{% endif %}
+</div>
+<div style="overflow-x: auto;">
+{% if seasons %}
+<br>
+<h5>All Seasons</h5>
+        <table class="table table-fixed-column table-dark table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">YEAR</th>
+                <th scope="col">W</th>
+                <th scope="col">L</th>
+                <th scope="col">GP</th>
+                <th scope="col">GS</th>
+                <th scope="col">S</th>
+                <th scope="col">IP</th>
+                <th scope="col">WHIP</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for season in seasons %}
+              <tr>
+                <td>{{ season.season }}</td>
+                <td>{{ season.wins }}</td>
+                <td>{{ season.losses }}</td>
+                <td>{{ season.gamesPlayed }}</td>
+                <td>{{ season.gamesStarted }}</td>
+                <td>{{ season.saves }}</td>
+                <td>{{ season.inningsPitched }}</td>
+                <td>{{ season.whip }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+<h4>No Data</h4>
+{% endif %}
+
+{% endif %}
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,324 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .col {
+        flex: 0 0 calc(33.33% - 20px);
+        margin: 10px;
+      
+        box-sizing: border-box;
+        padding: 20px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        padding-top: 70px;
+        font-family: 'Orbitron', sans-serif;
+    }
+    .col2 {
+        flex: 0 0 calc(50% - 20px);
+        margin: 10px;
+        background-color: #f0f0f0;
+        box-sizing: border-box;
+        padding: 20px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        padding-top: 70px;
+        font-family: 'Orbitron', sans-serif;
+    }
+    .col3 {
+        flex: 0 0 calc(15.33% + 20px);
+        margin: 10px;
+        margin-left: 30px;
+        box-sizing: border-box;
+        
+       /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+        /* padding-top: 70px; */
+        font-family: 'Orbitron', sans-serif;
+    }
+    @media (max-width: 992px) {
+        .col {
+            flex-basis: calc(50% - 20px);
+        }
+      
+    }
+
+    @media (max-width: 768px) {
+        .col {
+            flex-basis: calc(100% - 20px);
+        }
+    
+    }
+    .glow-on-hover {
+        transition: 0.5s ease;
+        
+    }
+    .glow-on-hover:hover {
+        box-shadow: 0 0 10px 2px rgba(19, 40, 160, 0.7); /* Adjust the color and spread as needed */
+    }
+    .table-container {
+        width: 100%; /* Adjust width as needed */
+        overflow-x: auto;
+    }
+</style>
+{% if team_id != 117 %} 
+<div class="container-fluid" style="font-family: 'Orbitron', sans-serif;">
+  <div class="row">
+
+      <div class="col-lg-12">
+          <div class="container text-center" style="padding-top: 20px;">
+              <div class="row align-items-start">
+               
+                  <div class="col-md-3 col-sm-6 mb-3"> <!-- Adjust column classes for small screens -->
+                      <div class="dropdown">
+                          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              Team Leaders
+                          </button>
+                          <ul class="dropdown-menu">
+                              <li><a class="dropdown-item" type="button" href="{% url 'team_leaders_hitting' team_id %}">Hitting</a></li>
+                              <li><a class="dropdown-item" type="button" href="{% url 'team_leaders_pitching' team_id %}">Pitching</a></li>
+                          </ul>
+                      </div>
+                  </div>
+                  <!-- Roster -->
+                  <div class="col-md-3 col-sm-6 mb-3"> <!-- Adjust column classes for small screens -->
+                      <a style="color: white; text-decoration: none;" class="glow-on-hover btn btn-secondary" href="{% url 'team_roster' team_id %}">Roster</a>
+                  </div>
+                  <!-- Injured List -->
+                  <div class="col-md-3 col-sm-6 mb-3"> <!-- Adjust column classes for small screens -->
+                      <a style="color: white; text-decoration: none;" class="glow-on-hover btn btn-secondary" href="{% url 'team_injured_list' team_id %}">Injured List</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+  </div>
+</div> {% else %}
+              
+{% endif %} 
+
+<div class="row" style="display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    ">
+
+        <div class="col" style="width: calc(33.33% - 20px);
+        margin: 10px;
+        background-color: #f0f0f0;
+        box-sizing: border-box;
+        padding: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        text-align: center;">
+            <!-- Content for the first column -->
+            <h4>Last Game</h4>
+            {% if lastGameInfo %}
+            <p>{{ lastGameInfo.gameDate }}</p>
+            <div style="display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;">
+            <div>
+
+                <img src="{{ nextGameInfo.awayTeamLogo }}" alt="Image" style="width: 80px; height: 100px;">
+                <h6>{{ lastGameInfo.awayTeamName }}</h6>
+                <p>{{ lastGameInfo.awayTeamRuns }}</p>
+            </div>
+    
+            <div>
+                <img src="{{ nextGameInfo.homeTeamLogo }}" alt="Image" style="width: 80px; height: 100px;">
+                <h6>{{ lastGameInfo.homeTeamName }}</h6>
+                <p>{{ lastGameInfo.homeTeamRuns }}</p>
+            </div>
+                
+            </div>
+            {% else %}
+            <h4>No Data</h4>
+  {% endif %}
+        </div>
+      
+    <div class="col" style="width: calc(33.33% - 20px);
+        margin: 10px;
+        background-color: #f0f0f0;
+        box-sizing: border-box;
+        padding: 20px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        text-align: center;">
+            <!-- Content for the second column -->
+        <h4>OPS Leaders</h4>
+        {% if ops_leaders %} 
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Rank</th>
+                <th scope="col">Player</th>
+                <th scope="col">OPS</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for leader in ops_leaders %}
+              <tr>
+                <td>{{ leader.rank }}</td>
+                <td><a href="{% url 'player' player_id=leader.p_id group=leader.category  %}" style="color: black; text-decoration: none;" class="glow-on-hover">{{ leader.name }}</a></td>
+                <td>{{ leader.value }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <h4>No Data</h4>
+          {% endif %} 
+        </div>
+    <div class="col" style="width: calc(33.33% - 20px);
+        margin: 10px;
+        background-color: #f0f0f0;
+        box-sizing: border-box;
+        padding: 20px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        text-align: center;">
+            <h4>HR Leaders</h4>
+            {% if hr_leaders %} 
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Player</th>
+                    <th scope="col">HR</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for leader in hr_leaders %}
+                  <tr>
+                    <td>{{ leader.rank }}</td>
+                    <td><a href="{% url 'player' player_id=leader.p_id group=leader.category  %}" style="color: black; text-decoration: none;" class="glow-on-hover">{{ leader.name }}</a></td>
+                    <td>{{ leader.value }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% else %}
+              <h4>No Data</h4>
+              {% endif %} 
+        </div>
+</div>
+<div class="row" style="display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;">
+    
+    <div class="col" style="width: calc(33.33% - 20px);
+    margin: 10px;
+    background-color: #f0f0f0;
+    box-sizing: border-box;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    text-align: center;">
+        <!-- Content for the first column -->
+        
+        <h4>Next Game</h4>
+        {% if nextGameInfo %}
+        <p>{{ nextGameInfo.gameDate }}</p>
+        <div style="display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;">
+        <div>
+
+            <img src="{{ nextGameInfo.awayTeamLogo }}" alt="Image" style="width: 80px; height: 100px;">
+            <h6>{{ nextGameInfo.awayTeamName }}</h6>
+            <p>{{ nextGameInfo.awayTeamRuns }}</p>
+        </div>
+
+        <div>
+            <img src="{{ nextGameInfo.homeTeamLogo }}" alt="Image" style="width: 80px; height: 100px;">
+            <h6>{{ nextGameInfo.homeTeamName }}</h6>
+            <p>{{ nextGameInfo.homeTeamRuns }}</p>
+        </div>
+            
+        </div>
+        {% else %}
+          <h4>No Data</h4>
+{% endif %}
+    </div>
+    
+    <div class="col" style="width: calc(33.33% - 20px);
+        margin: 10px;
+        background-color: #f0f0f0;
+        box-sizing: border-box;
+        padding: 20px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        text-align: center;">
+            <!-- Content for the second column -->
+            <h4>ERA Leaders</h4>
+            {% if era_leaders %} 
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Player</th>
+                    <th scope="col">ERA</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for leader in era_leaders %}
+                  <tr>
+                    <td>{{ leader.rank }}</td>
+                    <td><a href="{% url 'player' player_id=leader.p_id group=leader.category  %}" style="color: black; text-decoration: none;" class="glow-on-hover">{{ leader.name }}</a></td>
+                    <td>{{ leader.value }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% else %}
+              <h4>No Data</h4>
+              {% endif %} 
+        </div>
+    <div class="col" style="width: calc(33.33% - 20px);
+        margin: 10px;
+        background-color: #f0f0f0;
+        box-sizing: border-box;
+        padding: 20px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        text-align: center;">
+            <!-- Content for the third column -->
+            <div class="table-container">
+            <h4>AL West Standings</h4>
+            {% if standings %} 
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Team</th>
+                    <th scope="col">W</th>
+                    <th scope="col">L</th>
+                    <th scope="col">GB</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for row in standings %}
+                  <tr>
+                    <td>{{ row.divisonRank }}</td>
+                    <td><a href="{% url 'team' row.team_id %}" style="color: black; text-decoration: none;"class="glow-on-hover">{{ row.Name }}</a></td>
+                    <td>{{ row.wins }}</td>
+                    <td>{{ row.loss }}</td>
+                    <td>{{ row.gamesBack }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+              {% else %}
+              <h4>No Data</h4>
+              {% endif %} 
+        </div>
+</div>
+<!-- <div class="row" style="display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;"> -->
+    
+    
+
+</div>
+
+</div>
+        
+
+
+
+
+
+     
+
+{% endblock %}

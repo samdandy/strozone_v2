@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .glow-on-hover {
+        transition: 0.5s ease;
+    }
+    .glow-on-hover:hover {
+        box-shadow: 0 0 10px 2px rgba(19, 40, 160, 0.7); /* Adjust the color and spread as needed */
+    }
+    .table-container {
+        width: 100%; /* Adjust width as needed */
+        overflow-x: auto;
+    }
+</style>
+<br>
+<div class="row"
+style="background-color: #f0f0f0;
+        box-sizing: border-box;
+        margin: 10px;
+        padding: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        justify-content: space-between;
+        font-family: 'Orbitron', sans-serif;">
+    <H1 style="text-align: center;">Standings</H1>
+    {% if al_east %} 
+    <h4>AL East</h4>
+    <div class="table-container">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Rank</th>
+            <th scope="col">Team</th>
+            <th scope="col">W</th>
+            <th scope="col">L</th>
+            <th scope="col">GB</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for row in al_east %}
+          <tr>
+            <td>{{ row.divisonRank }}</td>
+            <td><a href="{% url 'team' row.team_id %}" style="color: black; text-decoration: none;"class="glow-on-hover">{{ row.Name }}</a></td>
+            <td>{{ row.wins }}</td>
+            <td>{{ row.loss }}</td>
+            <td>{{ row.gamesBack }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+          {% else %}
+          <h4>No Data</h4>
+          {% endif %} 
+
+          {% if al_west %} 
+          <div class="table-container">
+          <h4>AL West</h4>
+          <table class="table" style="overflow-x: auto;">
+              <thead>
+                <tr>
+                  <th scope="col">Rank</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">W</th>
+                  <th scope="col">L</th>
+                  <th scope="col">GB</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for row in al_west %}
+                <tr>
+                  <td>{{ row.divisonRank }}</td>
+                  <td><a href="{% url 'team' row.team_id %}" style="color: black; text-decoration: none;"class="glow-on-hover">{{ row.Name }}</a></td>
+                  <td>{{ row.wins }}</td>
+                  <td>{{ row.loss }}</td>
+                  <td>{{ row.gamesBack }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+                {% else %}
+                <h4>No Data</h4>
+                {% endif %} 
+      
+                {% if al_central %} 
+                <div class="table-container">
+                <h4>AL Central</h4>
+                <table class="table" style="overflow-x: auto;">
+                    <thead>
+                      <tr>
+                        <th scope="col">Rank</th>
+                        <th scope="col">Team</th>
+                        <th scope="col">W</th>
+                        <th scope="col">L</th>
+                        <th scope="col">GB</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in al_central %}
+                      <tr>
+                        <td>{{ row.divisonRank }}</td>
+                        <td><a href="{% url 'team' row.team_id %}" style="color: black; text-decoration: none;"class="glow-on-hover">{{ row.Name }}</a></td>
+                        <td>{{ row.wins }}</td>
+                        <td>{{ row.loss }}</td>
+                        <td>{{ row.gamesBack }}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                      {% else %}
+                      <h4>No Data</h4>
+                      {% endif %} 
+            
+
+                      {% if nl_east %} 
+                      <div class="table-container">
+                      <h4>NL East</h4>
+                      <table class="table" style="overflow-x: auto;">
+                          <thead>
+                            <tr>
+                              <th scope="col">Rank</th>
+                              <th scope="col">Team</th>
+                              <th scope="col">W</th>
+                              <th scope="col">L</th>
+                              <th scope="col">GB</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                              {% for row in nl_east %}
+                            <tr>
+                              <td>{{ row.divisonRank }}</td>
+                              <td><a href="{% url 'team' row.team_id %}" style="color: black; text-decoration: none;"class="glow-on-hover">{{ row.Name }}</a></td>
+                              <td>{{ row.wins }}</td>
+                              <td>{{ row.loss }}</td>
+                              <td>{{ row.gamesBack }}</td>
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                    </div>
+                            {% else %}
+                            <h4>No Data</h4>
+                            {% endif %} 
+
+                            {% if nl_west %} 
+                            <div class="table-container">
+                            <h4>NL West</h4>
+                            <table class="table" style="overflow-x: auto;">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Rank</th>
+                                    <th scope="col">Team</th>
+                                    <th scope="col">W</th>
+                                    <th scope="col">L</th>
+                                    <th scope="col">GB</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in nl_west %}
+                                  <tr>
+                                    <td>{{ row.divisonRank }}</td>
+                                    <td><a href="{% url 'team' row.team_id %}" style="color: black; text-decoration: none;"class="glow-on-hover">{{ row.Name }}</a></td>
+                                    <td>{{ row.wins }}</td>
+                                    <td>{{ row.loss }}</td>
+                                    <td>{{ row.gamesBack }}</td>
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                            </div>
+                                  {% else %}
+                                  <h4>No Data</h4>
+                                  {% endif %} 
+                            
+                                  {% if nl_central %} 
+                                  <div class="table-container">
+                                  <h4>NL Central</h4>
+                                  <table class="table" style="overflow-x: auto;">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">Rank</th>
+                                          <th scope="col">Team</th>
+                                          <th scope="col">W</th>
+                                          <th scope="col">L</th>
+                                          <th scope="col">GB</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% for row in nl_central %}
+                                        <tr>
+                                          <td>{{ row.divisonRank }}</td>
+                                          <td><a href="{% url 'team' row.team_id %}" style="color: black; text-decoration: none;"class="glow-on-hover">{{ row.Name }}</a></td>
+                                          <td>{{ row.wins }}</td>
+                                          <td>{{ row.loss }}</td>
+                                          <td>{{ row.gamesBack }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                      </tbody>
+                                    </table>
+                                </div>
+                                        {% else %}
+                                        <h4>No Data</h4>
+                                        {% endif %} 
+         
+</div>
+{% endblock %}

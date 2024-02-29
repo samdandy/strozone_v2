@@ -1,0 +1,50 @@
+.centered-dropdown_year {
+    text-align: center;
+    width: 125px; /* Set the desired width for the dropdown */
+}
+
+.centered-dropdown_team {
+    width: 190px; /* Set the desired width for the dropdown */
+}
+
+.centered-dropdown_grader {
+    width: 200px; 
+    display: flex;
+}
+
+
+.centered-dropdown_grader_number{
+    width: 60px; 
+
+}
+
+.title_text {
+    color: #fc7a00;
+}
+
+body {
+    background-color: #B0C4DE; /* Set your desired background color */
+  }
+
+.center-div {
+display: flex;
+align-items: center;
+justify-content: center;
+}
+/* static/css/styles.css */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Adjust as needed */
+}
+
+.card {
+    width: 18rem;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.list-group {
+    flex-grow: 1; /* Allow the list group to grow within the card */
+}
