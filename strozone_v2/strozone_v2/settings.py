@@ -76,30 +76,30 @@ WSGI_APPLICATION = 'strozone_v2.wsgi.application'
 
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'player_web',
-#         'USER':'postgres',
-#         'PASSWORD':'Smd168990!',
-#         'HOST':'cards-pg.c0asj4mvpd8p.us-east-1.rds.amazonaws.com',
-#         'PORT':5432
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE':'mssql',
-        'NAME': 'strozone',
-        'USER': 'shum',
-        'PASSWORD': 'Smd168990!',
-        'HOST': 'strozonev2.c0asj4mvpd8p.us-east-1.rds.amazonaws.com',
-        'PORT': '1433',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-        },
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER':'shum',
+        'PASSWORD':'Smd168990!',
+        'HOST':'strozone2.c0asj4mvpd8p.us-east-1.rds.amazonaws.com',
+        'PORT':5432
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE':'mssql',
+#         'NAME': 'strozone',
+#         'USER': 'shum',
+#         'PASSWORD': 'Smd168990!',
+#         'HOST': 'strozonev2.c0asj4mvpd8p.us-east-1.rds.amazonaws.com',
+#         'PORT': '1433',
+#         'OPTIONS': {
+#             'driver': 'ODBC Driver 17 for SQL Server',
+#         },
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
