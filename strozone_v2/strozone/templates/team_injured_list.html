@@ -3,25 +3,49 @@
 {% block content %}
 
 <style>
-     .col3 {
-        flex: 0 0 calc(15.33% + 20px);
-        margin: 10px;
-        margin-left: 30px;
-        box-sizing: border-box;
-        /* padding-top: 70px; */
-        font-family: 'Orbitron', sans-serif;
-    }
-    .col4 {
-        flex: 0 0 calc(10.33% + 20px);
-        margin: 10px;
-        margin-left: 30px;
-        box-sizing: border-box;
-        
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
-        /* padding-top: 70px; */
-        font-family: 'Orbitron', sans-serif;
-    }
-</style>
+    .table-fixed-column {
+       position: relative;
+   }
+   .table-fixed-column th:first-child,
+   .table-fixed-column td:first-child {
+       position: sticky;
+       left: 0;
+       z-index: 1;
+    
+    /* Optional: to make the first column background white */
+   }
+   .col3 {
+      flex: 0 0 calc(15.33% + 20px);
+      margin: 10px;
+      margin-left: 30px;
+      box-sizing: border-box;
+      
+
+      /* padding-top: 70px; */
+      font-family: 'Orbitron', sans-serif;
+  }
+  .col4 {
+       flex: 0 0 calc(10.33% + 20px);
+       margin: 10px;
+       margin-left: 30px;
+       box-sizing: border-box;
+       
+       box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+       /* padding-top: 70px; */
+       font-family: 'Orbitron', sans-serif;
+   }
+   .glow-on-hover {
+      transition: 0.5s ease;
+  }
+  .glow-on-hover:hover {
+      box-shadow: 0 0 10px 2px rgba(220, 245, 0, 0.7); /* Adjust the color and spread as needed */
+  }
+
+  .table-container {
+       overflow-x: auto;
+       max-width: 100%;
+   }
+</style>{% if team_id != 117 %} 
 <div class="container-fluid" style="font-family: 'Orbitron', sans-serif;">
   <div class="row">
 
@@ -57,6 +81,38 @@
       </div>
 
   </div>
-</div>
-  <h1>team_IL</h1>
+</div> {% else %}
+
+{% endif %} 
+
+<div class="row" style="background-color: #f0f0f0; box-sizing: border-box; margin: 10px; padding: 10px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); justify-content: space-between; font-family: 'Orbitron', sans-serif;">
+    <H1 style="text-align: center;">Injured List</H1>
+    {% if injured_list %} 
+    <br>
+
+    <div class="table-container">
+      <table class="table table-dark table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Position</th>
+            <th scope="col">Body Part</th>
+            <th scope="col">Update</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for player in injured_list %}
+          <tr>
+            <td>{{ player.player_name }}</a></td>
+            <td>{{ player.position }}</td>
+            <td>{{ player.injury_body_part }}</td>
+            <td>{{ player.injury_description }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <h4>No Data</h4>
+    {% endif %} 
 {% endblock %}

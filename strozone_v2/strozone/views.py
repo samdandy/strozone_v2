@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .funcs import *
 from .forms import *
 import json
+from .models import *
 SEASON = 2023
 
 
@@ -116,4 +117,9 @@ def team_roster(request,team_id):
     return render(request, 'team_roster.html',{'team_id':team_id,'catchers':catchers,'pitchers':pitchers,'infielders':infielders,'outfielders':outfielders})
 
 def team_injured_list(request,team_id):
-    return render(request, 'team_injured_list.html',{'team_id':team_id})
+
+    team_key = team_table.get_team_key_from_source(team_source_key=team_id)
+    print(team_key)
+    recent_injuries = injured_list_table.get_recent_injuries(team_id=team_key)
+    print(recent_injuries)
+    return render(request, 'team_injured_list.html',{'team_id':team_id,'injured_list':recent_injuries})

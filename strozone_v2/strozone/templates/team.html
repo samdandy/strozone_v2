@@ -130,7 +130,79 @@
             <h4>No Data</h4>
   {% endif %}
         </div>
-      
+        
+        <div class="col" style="width: calc(33.33% - 20px);
+        margin: 10px;
+        background-color: #f0f0f0;
+        box-sizing: border-box;
+        padding: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        text-align: center;">
+            <!-- Content for the first column -->
+            
+            <h4>Next Game</h4>
+            {% if nextGameInfo %}
+            <p>{{ nextGameInfo.gameDate }}</p>
+            <div style="display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;">
+            <div>
+    
+                <img src="{{ nextGameInfo.awayTeamLogo }}" alt="Image" style="width: 80px; height: 100px;">
+                <h6>{{ nextGameInfo.awayTeamName }}</h6>
+                <p>{{ nextGameInfo.awayTeamRuns }}</p>
+            </div>
+    
+            <div>
+                <img src="{{ nextGameInfo.homeTeamLogo }}" alt="Image" style="width: 80px; height: 100px;">
+                <h6>{{ nextGameInfo.homeTeamName }}</h6>
+                <p>{{ nextGameInfo.homeTeamRuns }}</p>
+            </div>
+                
+            </div>
+            {% else %}
+              <h4>No Data</h4>
+    {% endif %}
+        </div>
+        <div class="col" style="width: calc(33.33% - 20px);
+        margin: 10px;
+        background-color: #f0f0f0;
+        box-sizing: border-box;
+        padding: 20px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        text-align: center;">
+            <!-- Content for the third column -->
+            <div class="table-container">
+            <h4>Standings</h4>
+            {% if standings %} 
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Team</th>
+                    <th scope="col">W</th>
+                    <th scope="col">L</th>
+                    <th scope="col">GB</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for row in standings %}
+                  <tr>
+                    <td>{{ row.divisonRank }}</td>
+                    <td><a href="{% url 'team' row.team_id %}" style="color: black; text-decoration: none;"class="glow-on-hover">{{ row.Name }}</a></td>
+                    <td>{{ row.wins }}</td>
+                    <td>{{ row.loss }}</td>
+                    <td>{{ row.gamesBack }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+              {% else %}
+              <h4>No Data</h4>
+              {% endif %} 
+        </div>
+
     <div class="col" style="width: calc(33.33% - 20px);
         margin: 10px;
         background-color: #f0f0f0;
@@ -194,46 +266,7 @@
               <h4>No Data</h4>
               {% endif %} 
         </div>
-</div>
-<div class="row" style="display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;">
-    
-    <div class="col" style="width: calc(33.33% - 20px);
-    margin: 10px;
-    background-color: #f0f0f0;
-    box-sizing: border-box;
-    padding: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    text-align: center;">
-        <!-- Content for the first column -->
-        
-        <h4>Next Game</h4>
-        {% if nextGameInfo %}
-        <p>{{ nextGameInfo.gameDate }}</p>
-        <div style="display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;">
-        <div>
-
-            <img src="{{ nextGameInfo.awayTeamLogo }}" alt="Image" style="width: 80px; height: 100px;">
-            <h6>{{ nextGameInfo.awayTeamName }}</h6>
-            <p>{{ nextGameInfo.awayTeamRuns }}</p>
-        </div>
-
-        <div>
-            <img src="{{ nextGameInfo.homeTeamLogo }}" alt="Image" style="width: 80px; height: 100px;">
-            <h6>{{ nextGameInfo.homeTeamName }}</h6>
-            <p>{{ nextGameInfo.homeTeamRuns }}</p>
-        </div>
-            
-        </div>
-        {% else %}
-          <h4>No Data</h4>
-{% endif %}
-    </div>
-    
-    <div class="col" style="width: calc(33.33% - 20px);
+        <div class="col" style="width: calc(33.33% - 20px);
         margin: 10px;
         background-color: #f0f0f0;
         box-sizing: border-box;
@@ -265,52 +298,17 @@
               <h4>No Data</h4>
               {% endif %} 
         </div>
-    <div class="col" style="width: calc(33.33% - 20px);
-        margin: 10px;
-        background-color: #f0f0f0;
-        box-sizing: border-box;
-        padding: 20px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        text-align: center;">
-            <!-- Content for the third column -->
-            <div class="table-container">
-            <h4>AL West Standings</h4>
-            {% if standings %} 
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Rank</th>
-                    <th scope="col">Team</th>
-                    <th scope="col">W</th>
-                    <th scope="col">L</th>
-                    <th scope="col">GB</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    {% for row in standings %}
-                  <tr>
-                    <td>{{ row.divisonRank }}</td>
-                    <td><a href="{% url 'team' row.team_id %}" style="color: black; text-decoration: none;"class="glow-on-hover">{{ row.Name }}</a></td>
-                    <td>{{ row.wins }}</td>
-                    <td>{{ row.loss }}</td>
-                    <td>{{ row.gamesBack }}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-              {% else %}
-              <h4>No Data</h4>
-              {% endif %} 
-        </div>
+
 </div>
-<!-- <div class="row" style="display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;"> -->
+
+    
     
     
 
-</div>
+    
+    
+
+
 
 </div>
         

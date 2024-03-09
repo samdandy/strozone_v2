@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.utils import timezone
+from django.db.models import Max
 # Create your models here.
 
 
@@ -42,6 +43,10 @@ class team_table(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
           return self.name
+    @classmethod
+    def get_team_key_from_source(cls,team_source_key):
+        
+        return cls.objects.filter(source_system_id=team_source_key)[0].team_id
 
 class injured_list_table(models.Model):
     injured_list_id = models.AutoField(primary_key=True)
@@ -55,3 +60,27 @@ class injured_list_table(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
           return self.injured_list_id
+    
+    @classmethod
+    def get_recent_injuries(cls,team_id):
+        seven_days_ago = timezone.now() - timezone.timedelta(days=7)
+        latest_injuries = cls.objects.filter(
+            team_id=team_id,
+            created_at__gte=seven_days_ago
+        ).values(
+            'player_name', 'position', 'updated', 'injury_body_part', 'injury_description'
+        ).annotate(
+            latest_updated=Max('updated')
+        ).order_by(
+            '-latest_updated'
+        )
+
+        # Collect distinct values based on the latest update
+        distinct_injuries = []
+        seen_player_names = set()
+        for injury in latest_injuries:
+            if injury['player_name'] not in seen_player_names:
+                distinct_injuries.append(injury)
+                seen_player_names.add(injury['player_name'])
+
+        return distinct_injuries
