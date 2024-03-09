@@ -42,3 +42,16 @@ class team_table(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
           return self.name
+
+class injured_list_table(models.Model):
+    injured_list_id = models.AutoField(primary_key=True)
+    team = models.ForeignKey(team_table, on_delete=models.CASCADE)
+    player_name = models.CharField(max_length=500)
+    position = models.CharField(max_length=50)
+    updated = models.DateTimeField()
+    injury_body_part = models.CharField(max_length=100)
+    injury_description = models.CharField(max_length=1000)
+    crc_id = models.CharField(max_length=1000)
+    created_at = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+          return self.injured_list_id
