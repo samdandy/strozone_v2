@@ -90,9 +90,9 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE':'mssql',
-#         'NAME': 'strozone',
-#         'USER': 'shum',
-#         'PASSWORD': 'Smd168990!',
+#         'NAME': '',
+#         'USER': '',
+#         'PASSWORD': '',
 #         'HOST': 'strozonev2.c0asj4mvpd8p.us-east-1.rds.amazonaws.com',
 #         'PORT': '1433',
 #         'OPTIONS': {
